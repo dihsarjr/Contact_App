@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Contacts',
       theme: ThemeData(
-        primarySwatch: Colors.black,
+        primarySwatch: Colors.grey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(),
@@ -27,12 +27,14 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey,
       appBar: AppBar(
         title: Text('Contacts'),
       ),
       body: ListView.builder(
         itemBuilder: (ctx, index) {
           return Card(
+            color: Colors.black,
             child: Row(
               children: <Widget>[
                 Padding(
@@ -49,11 +51,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
-                        'DIHSAR RASHID',
-                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: Text(
+                          'DIHSAR RASHID',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
-                      Text("9999888855552"),
+                      Text(
+                        "9999888855552",
+                        style: TextStyle(color: Colors.white, fontSize: 10),
+                      ),
                     ],
                   ),
                 )
