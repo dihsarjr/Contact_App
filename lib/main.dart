@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           );
         },
-        itemCount: 20,
+        itemCount: 100,
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
