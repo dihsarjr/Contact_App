@@ -1,4 +1,8 @@
+import 'dart:convert';
+
+import 'package:contacts_app/model/contact_model.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(MyApp());
@@ -24,7 +28,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  @override
+  Future<List<ContactModel>> fetchContacts() async {
+    var url = '';
+    var response = await http.get(url);
+    var contacts = List<ContactModel>();
+    if (response.statusCode == 200) {
+      var contactJson = json.decode(response.body);
+      for (var contactJson in contactJson) {
+        contacts.add(ContactModel.fromJson(contactJson));
+      }
+    }
+    return contacts;
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey,
