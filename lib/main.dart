@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:contacts_app/details.dart';
 import 'package:contacts_app/model/contact_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -62,46 +63,61 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: ListView.builder(
         itemBuilder: (ctx, index) {
-          return Card(
-            color: Colors.black,
-            child: Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: CircleAvatar(
-                    radius: 30.0,
-                    backgroundImage: NetworkImage(
-                        'https://images.unsplash.com/photo-1593355370399-fce3d0d34bdb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
-                    backgroundColor: Colors.transparent,
+          return GestureDetector(
+            child: Card(
+              color: Colors.black,
+              child: Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: CircleAvatar(
+                      radius: 30.0,
+                      backgroundImage: NetworkImage(
+                          'https://images.unsplash.com/photo-1593355370399-fce3d0d34bdb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
+                      backgroundColor: Colors.transparent,
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: FittedBox(
-                          child: Text(
-                            _contacts[index].name,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: FittedBox(
+                            child: Text(
+                              _contacts[index].name,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
-                      ),
-                      FittedBox(
-                        child: Text(
-                          _contacts[index].number,
-                          style: TextStyle(color: Colors.white, fontSize: 10),
+                        FittedBox(
+                          child: Text(
+                            _contacts[index].number,
+                            style: TextStyle(color: Colors.white, fontSize: 10),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Details(
+                      'https://images.unsplash.com/photo-1593355370399-fce3d0d34bdb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+                      _contacts[index].name,
+                      _contacts[index].number,
+                      _contacts[index].email),
+                  settings: RouteSettings(arguments: _contacts[index]),
+                ),
+              );
+            },
           );
         },
         itemCount: _contacts.length,
