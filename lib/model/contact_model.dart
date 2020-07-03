@@ -5,7 +5,7 @@ class ContactModel {
   ContactModel(this.name, this.number, this.email);
   ContactModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
-    number = json['number'];
+    number = json['phone'];
     email = json['email'];
   }
 }

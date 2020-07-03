@@ -31,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<ContactModel> _contacts = List<ContactModel>();
 
   Future<List<ContactModel>> fetchContacts() async {
-    var url = '';
+    var url = 'https://jsonplaceholder.typicode.com/users';
     var response = await http.get(url);
     var contacts = List<ContactModel>();
     if (response.statusCode == 200) {
@@ -42,8 +42,9 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     return contacts;
   }
+
   @override
-  void initState(){
+  void initState() {
     fetchContacts().then((value) {
       setState(() {
         _contacts.addAll(value);
@@ -51,7 +52,6 @@ class _MyHomePageState extends State<MyHomePage> {
       super.initState();
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +70,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.all(10),
                   child: CircleAvatar(
                     radius: 30.0,
-                    backgroundImage:
-                        NetworkImage('https://via.placeholder.com/150'),
+                    backgroundImage: NetworkImage(
+                        'https://images.unsplash.com/photo-1593355370399-fce3d0d34bdb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60'),
                     backgroundColor: Colors.transparent,
                   ),
                 ),
@@ -82,17 +82,20 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
-                        child: Text(
-                          'DIHSAR RASHID',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold),
+                        child: FittedBox(
+                          child: Text(
+                            _contacts[index].name,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
-                      Text(
-                        "9999888855552",
-                        style: TextStyle(color: Colors.white, fontSize: 10),
+                      FittedBox(
+                        child: Text(
+                          _contacts[index].number,
+                          style: TextStyle(color: Colors.white, fontSize: 10),
+                        ),
                       ),
                     ],
                   ),
@@ -101,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           );
         },
-        itemCount: 100,
+        itemCount: _contacts.length,
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
