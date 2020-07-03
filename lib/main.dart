@@ -28,6 +28,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<ContactModel> _contacts = List<ContactModel>();
+
   Future<List<ContactModel>> fetchContacts() async {
     var url = '';
     var response = await http.get(url);
@@ -40,7 +42,18 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     return contacts;
   }
+  @override
+  void initState(){
+    fetchContacts().then((value) {
+      setState(() {
+        _contacts.addAll(value);
+      });
+      super.initState();
+    });
+  }
 
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey,
